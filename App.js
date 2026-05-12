@@ -1,20 +1,48 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+import LoginScreen from './screens/LoginScreen';   // <-- importe corretamente
+import HomeScreen from './screens/HomeScreen';
+import TarefasDiaScreen from './screens/TarefasDiaScreen';
+import DetalhesScreen from './screens/DetalhesScreen'; // importe
+// PlantasScreen não está sendo usada, pode remover a importação.
+
+const Stack = createNativeStackNavigator();
+const Tab = createBottomTabNavigator();
+
+function Tabs({ route }) {
+    const { nomeUsuario } = route.params;
+
+    return (
+        <Tab.Navigator screenOptions={{ headerShown: false }}>
+            <Tab.Screen
+                name="Home"
+                component={HomeScreen}
+                initialParams={{ nomeUsuario }}
+            />
+            <Tab.Screen
+                name="Tarefas"
+                component={TarefasDiaScreen}
+                initialParams={{ nomeUsuario }}
+            />
+        </Tab.Navigator>
+    );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default function App() {
+    return (
+        <NavigationContainer>
+            <Stack.Navigator screenOptions={{ headerShown: false }}>
+                <Stack.Screen name="Login" component={LoginScreen} />
+                <Stack.Screen name="MainTabs" component={Tabs} />
+                <Stack.Screen
+                    name="DetalhesTarefa"
+                    component={DetalhesScreen}
+                    options={{ headerShown: true, title: 'Detalhes do cuidado' }}
+                />
+            </Stack.Navigator>
+        </NavigationContainer>
+    );
+}
