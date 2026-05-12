@@ -6,8 +6,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import LoginScreen from './screens/LoginScreen';   // <-- importe corretamente
 import HomeScreen from './screens/HomeScreen';
 import TarefasDiaScreen from './screens/TarefasDiaScreen';
-import DetalhesScreen from './screens/DetalhesScreen'; // importe
-// PlantasScreen não está sendo usada, pode remover a importação.
+import DetalhesCuidadoScreen from './screens/DetalhesCuidadoScreen';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -38,9 +37,9 @@ export default function App() {
                 <Stack.Screen name="Login" component={LoginScreen} />
                 <Stack.Screen name="MainTabs" component={Tabs} />
                 <Stack.Screen
-                    name="DetalhesTarefa"
-                    component={DetalhesScreen}
-                    options={{ headerShown: true, title: 'Detalhes do cuidado' }}
+                    name="DetalhesCuidado"
+                    component={DetalhesCuidadoScreen}
+                    options={{ headerShown: true, title: 'Detalhes do Cuidado' }}
                 />
             </Stack.Navigator>
         </NavigationContainer>
